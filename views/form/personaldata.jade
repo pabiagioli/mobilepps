@@ -1,0 +1,28 @@
+div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-icon="arrow-d", data-content-theme="b")
+	div(data-role="collapsible" ,data-collapsed="true")
+		h3 Datos Filiatorios
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="fname") Nombres
+				input(type="text", id="fname", name="fname", class="required")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="lname") Apellido
+				input(type="text", id="lname", name="lname", class="required")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="age") Edad
+				input(type="number", id="age", name="age", class="required")
+		div(data-role="fieldcontain")
+			label(for="gender", class="select") Sexo
+			select(id="gender", name="gender", class="required")
+				option(value="M") M
+				option(value="F") F
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="address") Domicilio
+				input(type="text", id="address", name="address", class="required")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="city") Localidad
+				input(type="text", id="city", name="city", class="required")

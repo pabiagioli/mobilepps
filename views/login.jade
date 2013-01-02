@@ -1,0 +1,12 @@
+doctype 5
+html(lang="en")
+	head
+		title Login
+	body
+		h1 Ingresar al Sistema de Gestión de Pacientes
+		#container
+			form(action="/login", method="post")
+				label Nickname
+				input(name="username", placeholder="Tu Nombre")
+				input(type="hidden",name="password", value="allIn")
+				input(type="submit", value="Submit")

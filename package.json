@@ -1,0 +1,15 @@
+{ 
+  "name":"nodepps",
+  "version":"0.0.1",
+  "dependencies": {
+    "express": "3.0.2",
+    "socket.io": "~0.9.10",
+    "request": "~2.11.4",
+    "passport": "*",
+    "passport-local": "*",
+    "connect-ensure-login": "*",
+    "mongoose": "*",
+    "jade": "*",
+    "nodemon":"*"
+  }
+}
