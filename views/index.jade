@@ -7,6 +7,8 @@ block content
     h2 Bienvenido #{username.user}
     h3 Completa el formulario
     form(id="survey-form", onsubmit="javascript:survey(this);return false;")
-    include form/personaldata
-    include form/parentmh
+      include form/personaldata
+      include form/parentmh
+      include form/personal-history
+
     input(type="submit", value="Submit")
