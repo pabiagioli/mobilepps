@@ -48,12 +48,13 @@ app.configure(function() {
   app.use(express.logger());
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.cookieParser());
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.session({ secret: 'secret' }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-  app.engine('jade', require('jade').__express);
 });
 
 passport.serializeUser(function(user, done) {
@@ -115,7 +116,7 @@ app.post('/login',
 
 
 var server = app.listen(8080);
-console.log('Express server started on %s:%s',server.address().address,server.address().port);
+//console.log('Express server started on %s:%s',server.address().address,server.address().port);
 
 /* Socket io part */
 var io = socketio.listen(server);
