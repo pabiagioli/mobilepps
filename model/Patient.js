@@ -44,7 +44,7 @@ var personalMHschema = new Schema({
 	arhythmia: Boolean,
 	otros: String,
 	treatment: Boolean,
-	treatment2: String,
+	treatdesc: String,
 	tabaquism: Boolean,
 	cigDay: Number,
 	years: Number,

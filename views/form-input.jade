@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  div(data-role="header", data-theme="a")
+    h3 Formulario Paciente
+  div(data-role="content")
+    h2 Bienvenido #{username.user}
+    h3 Completa el formulario
+    form(id="survey-form", onsubmit="javascript:survey(this);return false;")
+      include form/personaldata
+      include form/parentmh
+      include form/personal-history
+      include form/glicemia
+      include form/physical-activities
+    input(type="submit", value="Submit")
+    script
+      function toggleCOD(sel,number){
+        var value = sel.options[sel.selectedIndex].value;
+        if (value == "true")
+          $('#div-cod-'+number).fadeOut();
+        else
+          $('#div-cod-'+number).fadeIn();
+      }
+      function toggleTreatment(sel){
+        var value = sel.options[sel.selectedIndex].value;
+        if (value == "on")
+          $('#div-treatdesc').fadeIn();
+        else
+          $('#div-treatdesc').fadeOut();
+      }
+      function toggleTobacco(sel){
+        var value = sel.options[sel.selectedIndex].value;
+        if (value == "on")
+          $('#div-tobacco-desc').fadeIn();
+        else
+          $('#div-tobacco-desc').fadeOut();
+      }
+      function toggleActivity(sel,kind){
+        var value = sel.options[sel.selectedIndex].value;
+        if (value == "on")
+          $('#div-'+kind+'-desc').fadeIn();
+        else
+          $('#div-'+kind+'-desc').fadeOut();
+      }
+
+      //init script
+      $('select[name="alive"]').each(
+        function(index,element){
+          toggleCOD(element,index+1);
+          });
+      toggleTreatment($('#treatment')[0]);
+      toggleTobacco($('#tabaquism')[0])
+      toggleActivity($('#recently')[0],'recently');
+      toggleActivity($('#previous')[0],'previous');

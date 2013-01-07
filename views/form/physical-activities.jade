@@ -1,0 +1,58 @@
+div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-icon="arrow-d", data-content-theme="b")
+	div(data-role="collapsible" ,data-collapsed="true")
+		h3 Actividad Física
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				div(class="ui-grid-a")
+					div(class="ui-block-a")
+						label(for="recently") Actualmente
+					div(class="ui-block-b")
+						select(name="recently", id="recently", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'recently');")
+							option(value='off') No
+							option(value='on') Si
+			fieldset(data-role="controlgroup", id="div-recently-desc")
+				div(data-role="fieldcontain")
+					label(for="leisure") Esparcimiento
+					input(type="checkbox", id="leisure", name="leisure", class="required",  placeholder="cig/dia")
+					label(for="competitive") Competitivo
+					input(type="checkbox", id="competitive", name="competitive", class="required",  placeholder="años")
+				div(data-role="fieldcontain")
+					label(for="recentlydesc") Cuál es la actividad?
+					input(type="text", id="recentlydesc", name="recentlydesc", class="required")
+				div(data-role="fieldcontain")
+					label(for="recentlyfreq") frecuencia semanal
+					input(type="number", id="recentlyfreq", name="recentlyfreq", class="required",  placeholder="dias/semana")
+				div(data-role="fieldcontain")
+					label(for="recentlyhours") Horas por vez
+					input(type="number", id="recentlyhours", name="recentlyhours", class="required", placeholder="horas")
+			hr
+			fieldset(data-role="controlgroup")
+				div(class="ui-grid-a")
+					div(class="ui-block-a")
+						label(for="previous") Anteriormente
+					div(class="ui-block-b")
+						select(name="previous", id="previous", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'previous');")
+							option(value='off') No
+							option(value='on') Si
+			fieldset(data-role="controlgroup", id="div-previous-desc")
+				div(data-role="fieldcontain")
+					label(for="leisure") Esparcimiento
+					input(type="checkbox", id="leisure", name="leisure", class="required",  placeholder="cig/dia")
+					label(for="competitive") Competitivo
+					input(type="checkbox", id="competitive", name="competitive", class="required",  placeholder="años")
+				div(data-role="fieldcontain")
+					label(for="previousdesc") Cuál es la actividad?
+					input(type="text", id="previousdesc", name="previousdesc", class="required")
+				div(data-role="fieldcontain")
+					label(for="previousdesc") De qué edad a qué edad?
+					div(class="ui-grid-a")
+						div(class="ui-block-a")
+							input(type="number", id="previousAgeIni", name="previousAgeIni", class="required", placeholder="desde")
+						div(class="ui-block-b")
+							input(type="number", id="previousAgeEnd", name="previousAgeEnd", class="required", placeholder="hasta")
+				div(data-role="fieldcontain")
+					label(for="previousfreq") frecuencia semanal
+					input(type="number", id="previousfreq", name="previousfreq", class="required",  placeholder="dias/semana")
+				div(data-role="fieldcontain")
+					label(for="previoushours") Horas por vez
+					input(type="number", id="previoushours", name="previoushours", class="required", placeholder="horas")

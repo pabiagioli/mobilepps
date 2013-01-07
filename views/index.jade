@@ -5,10 +5,11 @@ block content
     h3 Formulario Paciente
   div(data-role="content")
     h2 Bienvenido #{username.user}
-    h3 Completa el formulario
-    form(id="survey-form", onsubmit="javascript:survey(this);return false;")
-      include form/personaldata
-      include form/parentmh
-      include form/personal-history
-
-    input(type="submit", value="Submit")
+    ul(data-role="listview", data-inset="true", data-theme="c", data-dividertheme="b")
+      li(data-role="list-divider", role="heading") Menú
+      li 
+        a(href="/form-input") Nuevo Paciente
+      li 
+        a(href="/form-query") Buscar Paciente
+      li 
+        a(href="/stats") Estadisticas

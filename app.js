@@ -114,6 +114,13 @@ app.post('/login',
 		res.redirect('/');
 });
 
+app.get('/form-input',ensureLoggedIn('/login'),function(req,res){
+	res.render('form-input.jade', {username:req.user});
+});
+
+app.post('/form-input',ensureLoggedIn('/login'),function(req,res){
+	res.render('form-input.jade', {username:req.user});
+});
 
 var server = app.listen(8080);
 //console.log('Express server started on %s:%s',server.address().address,server.address().port);

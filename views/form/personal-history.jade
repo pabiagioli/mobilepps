@@ -11,8 +11,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 				input(type="checkbox", id="dislipedemia", name="dislipedemia")
 				label(for="chagas") Chagas
 				input(type="checkbox", id="chagas", name="chagas")
-				label(for="arritmias") Arritmias
-				input(type="checkbox", id="arritmias", name="arritmias")
+				label(for="arhythmia") Arritmias
+				input(type="checkbox", id="arhythmia", name="arhythmia")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="thyroid") Tiroides
@@ -23,13 +23,23 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 				input(type="text", id="others", name="others", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
-				label(for="tratamientos") Tratamientos
-				select(name="tratamientos", id="tratamientos", data-theme='', data-role='slider')
-					option(value='off') Si
-					option(value='on') No
-				label(for="tratamientos-desc") Descripción
-				input(type="text", id="tratamientos-desc", name="tratamientos-desc", class="required")
+				label(for="treatment") Tratamientos
+				select(name="treatment", id="treatment", data-theme='', data-role='slider', onchange="javascript:toggleTreatment(this);")
+					option(value='off') No
+					option(value='on') Si
+			fieldset(data-role="controlgroup", id="div-treatdesc")
+				label(for="treatdesc") Descripción del Tratamiento
+				input(type="text", id="treatdesc", name="treatdesc", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
-				label(for="tabaquismo") Tabaquismo
-				input(type="checkbox", id="tabaquismo",name="tabaquismo")
+				label(for="tabaquism") Tabaquismo
+				select(name="tabaquism", id="tabaquism", data-theme='', data-role='slider', onchange="javascript:toggleTobacco(this);")
+					option(value='off') No
+					option(value='on') Si
+			fieldset(data-role="controlgroup", id="div-tobacco-desc")
+				label(for="cigDay") cigarrillos/dia
+				input(type="number", id="cigDay", name="cigDay", class="required",  placeholder="cig/dia")
+				label(for="cigDay") años
+				input(type="number", id="cigDay", name="cigDay", class="required",  placeholder="años")
+				label(for="cigDay") abstinencia
+				input(type="number", id="cigDay", name="cigDay", class="required", placeholder="años")
