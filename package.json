@@ -1,5 +1,6 @@
 { 
-  "name":"nodepps",
+  "name":"pampanetpps",
+  "subdomain":"pampanet-pps",
   "version":"0.0.1",
   "dependencies": {
     "express": "3.0.2",
@@ -11,5 +12,11 @@
     "mongoose": "*",
     "jade": "*",
     "nodemon":"*"
+  },
+  "scripts":{ 
+    "start":"app.js"
+  },
+  "engines":{
+    "node": "0.8.x"
   }
 }
