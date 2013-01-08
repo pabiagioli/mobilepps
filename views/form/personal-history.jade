@@ -4,42 +4,42 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain", data-theme="c")
 			fieldset(data-role="controlgroup")
 				label(for="dbt") DBT
-				input(type="checkbox",id="dbt", name="dbt")
+				input(type="checkbox",id="dbt", name="personalMH.dbt")
 				label(for="hta") HTA
-				input(type="checkbox", id="hta",name="hta")
+				input(type="checkbox", id="hta",name="personalMH.hta")
 				label(for="dislipedemia") Dislipedemia
-				input(type="checkbox", id="dislipedemia", name="dislipedemia")
+				input(type="checkbox", id="dislipedemia", name="personalMH.dislipedemia")
 				label(for="chagas") Chagas
-				input(type="checkbox", id="chagas", name="chagas")
+				input(type="checkbox", id="chagas", name="personalMH.chagas")
 				label(for="arhythmia") Arritmias
-				input(type="checkbox", id="arhythmia", name="arhythmia")
+				input(type="checkbox", id="arhythmia", name="personalMH.arhythmia")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="thyroid") Tiroides
-				input(type="text", id="thyroid", name="thyroid", class="required")
+				input(type="text", id="thyroid", name="personalMH.thyroid", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="others") Otros
-				input(type="text", id="others", name="others", class="required")
+				input(type="text", id="others", name="personalMH.others", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="treatment") Tratamientos
-				select(name="treatment", id="treatment", data-theme='', data-role='slider', onchange="javascript:toggleTreatment(this);")
+				select(name="personalMH.treatment", id="treatment", data-theme='', data-role='slider', onchange="javascript:toggleTreatment(this);")
 					option(value='off') No
 					option(value='on') Si
 			fieldset(data-role="controlgroup", id="div-treatdesc")
 				label(for="treatdesc") Descripción del Tratamiento
-				input(type="text", id="treatdesc", name="treatdesc", class="required")
+				input(type="text", id="treatdesc", name="personalMH.treatdesc", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="smoking") Tabaquismo
-				select(name="smoking", id="smoking", data-theme='', data-role='slider', onchange="javascript:toggleTobacco(this);")
+				select(name="personalMH.smoking", id="smoking", data-theme='', data-role='slider', onchange="javascript:toggleTobacco(this);")
 					option(value='off') No
 					option(value='on') Si
 			fieldset(data-role="controlgroup", id="div-tobacco-desc")
 				label(for="cigDay") cigarrillos/dia
-				input(type="number", id="cigDay", name="cigDay", class="required",  placeholder="cig/dia")
+				input(type="number", id="cigDay", name="personalMH.cigDay", class="required",  placeholder="cig/dia")
 				label(for="cigYears") años
-				input(type="number", id="cigYears", name="cigYears", class="required",  placeholder="años")
+				input(type="number", id="cigYears", name="personalMH.cigYears", class="required",  placeholder="años")
 				label(for="cigAbstinence") abstinencia
-				input(type="number", id="cigAbstinence", name="cigAbstinence", class="required", placeholder="años")
+				input(type="number", id="cigAbstinence", name="personalMH.cigAbstinence", class="required", placeholder="años")
