@@ -3,58 +3,58 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		h3 Antecedentes Paternos
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
-				select(name="father.alive", class="required", onchange="javascript:toggleCOD(this,1);")
+				select(name="alive", class="required", onchange="javascript:toggleCOD(this,1);")
 					option(value="true") Vivo
 					option(value="false") Fallecido
 		div(data-role="fieldcontain", id="div-cod-1")
 			fieldset(data-role="controlgroup")
 				label(for="cod1") Causa de Muerte
-				input(type="text", id="cod1", name="father.cod", class="required")
+				input(type="text", id="cod1", name="cod", class="required")
 		div(data-role="fieldcontain", data-theme="c")
 			fieldset(data-role="controlgroup")
 				label(for="dbt") DBT
-				input(type="checkbox",id="dbt", name="father.dbt")
+				input(type="checkbox",id="dbt", name="dbt")
 				label(for="hta") HTA
-				input(type="checkbox", id="hta",name="father.hta")
+				input(type="checkbox", id="hta",name="hta")
 				label(for="dislipedemia") Dislipedemia
-				input(type="checkbox", id="dislipedemia", name="father.dislipedemia")
+				input(type="checkbox", id="dislipedemia", name="dislipedemia")
 				label(for="chagas") Chagas
-				input(type="checkbox", id="chagas", name="father.chagas")
+				input(type="checkbox", id="chagas", name="chagas")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="thyroid") Tiroides
-				input(type="text", id="thyroid", name="father.thyroid", class="required")
+				input(type="text", id="thyroid", name="thyroid", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="others") Otros
-				input(type="text", id="others", name="father.others", class="required")
+				input(type="text", id="others", name="others", class="required")
 div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-icon="arrow-d", data-content-theme="b")
 	div(data-role="collapsible" ,data-collapsed="true")
 		h3 Antecedentes Maternos
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
-				select(name="mother.alive", class="required", onchange="javascript:toggleCOD(this,2);")
+				select(name="alive", class="required", onchange="javascript:toggleCOD(this,2);")
 					option(value="true") Viva
 					option(value="false") Fallecida
 		div(data-role="fieldcontain", id="div-cod-2")
 			fieldset(data-role="controlgroup")
 				label(for="cod2") Causa de Muerte
-				input(type="text", id="cod2", name="mother.cod", class="required")
+				input(type="text", id="cod2", name="cod", class="required")
 		div(data-role="fieldcontain", data-theme="c")
 			fieldset(data-role="controlgroup")
 				label(for="dbt") DBT
-				input(type="checkbox",id="dbt", name="mother.dbt")
+				input(type="checkbox",id="dbt", name="dbt")
 				label(for="hta") HTA
-				input(type="checkbox", id="hta",name="mother.hta")
+				input(type="checkbox", id="hta",name="hta")
 				label(for="dislipedemia") Dislipedemia
-				input(type="checkbox", id="dislipedemia", name="mother.dislipedemia")
+				input(type="checkbox", id="dislipedemia", name="dislipedemia")
 				label(for="chagas") Chagas
-				input(type="checkbox", id="chagas", name="mother.chagas")
+				input(type="checkbox", id="chagas", name="chagas")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="thyroid") Tiroides
-				input(type="text", id="thyroid", name="mother.thyroid", class="required")
+				input(type="text", id="thyroid", name="thyroid", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="others") Otros
-				input(type="text", id="others", name="mother.others", class="required")
+				input(type="text", id="others", name="others", class="required")
