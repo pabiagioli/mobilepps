@@ -4,21 +4,21 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="glycsched") Horario de la toma
-				input(type="text", id="glycsched", name="glycsched", class="required")
+				input(type="text", id="glycsched", name="glycemia.glycsched", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				div(class="ui-grid-a")
 					div(class="ui-block-a")
 						label(for="fasting") Ayunas
 					div(class="ui-block-b")
-						select(name="fasting", id="fasting", data-theme='', data-role='slider')
+						select(name="glycemia.fasting", id="fasting", data-theme='', data-role='slider')
 							option(value='off') No
 							option(value='on') Si
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="glycval") Valor de glicemia
-				input(type="number", id="glycval", name="glycval", class="required")
+				input(type="number", id="glycval", name="glycemia.glycval", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="lastmeal") Ultima Ingesta
-				input(type="text", id="lastmeal", name="lastmeal", class="required")
+				input(type="text", id="lastmeal", name="glycemia.lastmeal", class="required")
