@@ -10,6 +10,37 @@
 * others : otros
 */
 
+/* DB Start with DAO */
+var DAOimpl = function(url,dbname,dbuser,dbpass){
+
+	var connStr ='mongodb://'; 
+	
+	if(dbuser != null || dbpass != null)
+		connStr += dbuser+':'+dbpass+'@'+url+'/'+dbname;
+	else
+		connStr += url+'/'+dbname;
+	
+	console.log("Connecting to %s ...\n",connStr);
+	
+	return mongoose.connect(connStr, function (err) {
+		if (err) {
+			console.log('Connection to MongoDB error');
+			return err;
+		}
+		console.log("Connection to MongoDB successful");
+  		// ok we're set
+	});
+	
+};
+
+var DAO = new DAOimpl('localhost', 'nodepps',null,null);
+
+var User = new Schema({
+	user: String,
+	password: String,
+	role: String
+});
+
 var personalDataSchema = new Schema({
 	fname: String,
 	lname: String,

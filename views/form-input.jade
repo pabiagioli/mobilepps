@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  div(data-role="header", data-theme="a")
+  div(data-role="header", data-theme="a", data-position="fixed", data-id="topbar", data-add-back-btn="true")
+    a(data-role="button", data-rel="back", data-theme="b") Volver
     h3 Formulario Paciente
   div(data-role="content")
     h2 Bienvenido #{username.user}
@@ -12,8 +13,26 @@ block content
       include form/personal-history
       include form/glicemia
       include form/physical-activities
-    input(type="submit", value="Submit")
+    input(type="submit", value="Submit", onclick="javascript:survey(this);")
+    div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
+      div(data-role="navbar", role="navigation", data-iconpos="top")
+        ul(class="ui-grid-b")
+          li(class="ui-block-a")
+            a(href="/form-input", data-icon="plus", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Nuevo Paciente
+          li(class="ui-block-b")
+            a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn ui-btn-inline ui-btn-icon-top ui-btn-up-a") Buscar Paciente
+          li(class="ui-block-c")
+            a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn ui-btn-inline ui-btn-icon-top ui-btn-up-a") Estadísticas
+    div(data-role="popup", id="success-popup", data-overlay-theme="a", data-theme="c")
+      div(data-role="header", data-theme="a", class="ui-corner-top ui-header ui-bar-a", role="banner")
+        h3 Formulario enviado
+      div(data-role="content", data-theme="d", class="ui-corner-bottom ui-content ui-body-d", role="main")
+        h4 Formulario enviado con éxito
+        a(href="#", data-rel="back", data-role="button", data-theme="a") Close
     script
+      function survey(form){
+        $('#success-popup').popup('open');
+      }
       function toggleCOD(sel,number){
         var value = sel.options[sel.selectedIndex].value;
         if (value == "true")

@@ -11,32 +11,6 @@ var mongoose = require('mongoose'),
 /* My Modules and Classes */
 /*var FormLabel = require("./model/Patient");*/
 
-
-/* DB Start with DAO */
-var DAOimpl = function(url,dbname,dbuser,dbpass){
-
-	var connStr ='mongodb://'; 
-	
-	if(dbuser != null || dbpass != null)
-		connStr += dbuser+':'+dbpass+'@'+url+'/'+dbname;
-	else
-		connStr += url+'/'+dbname;
-	
-	console.log("Connecting to %s ...\n",connStr);
-	
-	return mongoose.connect(connStr, function (err) {
-		if (err) {
-			console.log('Connection to MongoDB error');
-			return err;
-		}
-		console.log("Connection to MongoDB successful");
-  		// ok we're set
-	});
-	
-};
-
-var DAO = new DAOimpl('localhost', 'nodepps',null,null);
-
 /* 
 ******************************
 *
@@ -70,7 +44,7 @@ passport.use(new LocalStrategy(
 		if(username == null)
 			console.log("error ocurred during auth");
 
-		/*QA.find({}, function(err,docs){
+		/*Users.find({}, function(err,docs){
 			if (err){
 				console.log(err);
 			}else{
@@ -85,21 +59,21 @@ passport.use(new LocalStrategy(
 
 
 app.get('/',ensureLoggedIn('/login'), function(req,res){
-	/*QA.find({}, function(err,docs){
+	/*Users.find({}, function(err,docs){
 		if (err){
 			console.log(err);
 		}else{*/
-			res.render('index.jade',{username:req.user/*, qa: docs*/});
+			res.render('index.jade',{username:req.user/*, Users: docs*/});
 		/*}
 	});	*/
 });
 
 app.post('/',ensureLoggedIn('/login'), function(req,res){
-	/*QA.find({}, function(err,docs){
+	/*Users.find({}, function(err,docs){
 		if (err){
 			console.log(err);
 		}else{*/
-			res.render('index.jade',{username:req.user/*, qa: docs*/});
+			res.render('index.jade',{username:req.user/*, Users: docs*/});
 		/*}
 	});*/
 });
@@ -135,7 +109,7 @@ app.get('/admin',function(req,res){
 	/*Attendee.find({}, function (err,docs){
 		if(err)
 			console.log(err);*/
-		res.send( JSON.stringify({username:req.user/*, QAs: docs*/}));
+		res.send( JSON.stringify({username:req.user/*, Users: docs*/}));
 	/*});
 	*/
 });
