@@ -1,0 +1,19 @@
+div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-icon="arrow-d", data-content-theme="b")
+	div(data-role="collapsible" ,data-collapsed="true")
+		h3 Medidas Antropométricas
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="sizeNum") Talla
+				input(type="number", id="sizeNum", name="measures.sizeNum", class="required", placeholder="m")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="waist") Cintura
+				input(type="number", id="waist", name="measures.waist", class="required", placeholder="cm")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="weight") Peso
+				input(type="number", id="weight", name="measures.weight", class="required", placeholder="kg")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="imc") Indice Masa Corporal
+				input(type="number", id="imc", name="measures.imc", class="required", placeholder="kg/m2", readonly="readonly")

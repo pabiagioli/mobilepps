@@ -1,0 +1,38 @@
+div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-icon="arrow-d", data-content-theme="b")
+	div(data-role="collapsible" ,data-collapsed="true")
+		h3 Examen Físico
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="inspection") Inspección
+				input(type="text", id="inspection", name="physicalExam.inspection", class="required")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				label(for="heartAuscultation") Auscultación Cardíaca
+				input(type="text", id="heartAuscultation", name="physicalExam.heartAuscultation", class="required")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				div(class="ui-grid-a")
+					div(class="ui-block-a")
+						label(for="murmurs") Soplos
+					div(class="ui-block-b")
+						select(name="physicalExam.murmurs", id="murmurs", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'murmurs');")
+							option(value='off') No
+							option(value='on') Si
+			fieldset(data-role="controlgroup", id="div-murmurs-desc")
+				div(data-role="fieldcontain")
+					label(for="murmursDesc") Descripción
+					input(type="text", id="murmursDesc", name="physicalExam.murmursDesc", class="required",  placeholder="Describa el Soplo")
+		div(data-role="fieldcontain")
+			fieldset(data-role="controlgroup")
+				div(class="ui-grid-a")
+					div(class="ui-block-a")
+						label(for="pulmonarAuscultation") Auscultación Pulmonar
+					div(class="ui-block-b")
+						select(name="physicalExam.pulmonarAuscultation", id="pulmonarAuscultation", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'pulmonarAuscultation');")
+							option(value='off') Normal
+							option(value='on') Hallazgo
+			fieldset(data-role="controlgroup", id="div-pulmonarAuscultation-desc")
+				div(data-role="fieldcontain")
+					label(for="pulmonarAuscultationDesc") Descripción
+					input(type="text", id="pulmonarAuscultationDesc", name="physicalExam.murmursDesc", class="required",  placeholder="Describa el Hallazgo")
+					

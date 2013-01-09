@@ -88,6 +88,11 @@ app.post('/login',
 		res.redirect('/');
 });
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/form-input',ensureLoggedIn('/login'),function(req,res){
 	res.render('form-input.jade', {username:req.user});
 });
