@@ -65,7 +65,17 @@ block content
         else
           $('#div-'+kind+'-desc').fadeOut();
       }
-
+      function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString.value);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        $('#age').val(age);
+        return age;
+      }
       //init script
       $('select[name*="alive"]').each(
         function(index,element){

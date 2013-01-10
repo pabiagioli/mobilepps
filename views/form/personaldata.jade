@@ -4,37 +4,37 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="mhnum") Historia Clinica Nº
-				input(type="text", id="mhnum", name="personalData.mhnum", class="required")
+				input(type="text", id="mhnum", name="personalDataMHNum", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="fname") Nombres
-				input(type="text", id="fname", name="personalData.fname", class="required")
+				input(type="text", id="fname", name="personalDataFname", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="lname") Apellido
-				input(type="text", id="lname", name="personalData.lname", class="required")
+				input(type="text", id="lname", name="personalDataLname", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="ssn") DNI
-				input(type="text", id="ssn", name="personalData.ssn", class="required")
+				input(type="text", id="ssn", name="personalDataSSN", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="bday") Fecha de Nacimiento
-				input(type="date", id="bday", name="personalData.bday", class="required")
+				input(type="date", id="bday", name="personalDataBday", class="required", onchange="javascript:getAge(this)")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="age") Edad
-				input(type="number", id="age", name="personalData.age", class="required", readonly="readonly")
+				input(type="number", id="age", name="personalDataAge", class="required", readonly="readonly")
 		div(data-role="fieldcontain")
 			label(for="gender", class="select") Sexo
-			select(id="gender", name="personalData.gender", class="required")
+			select(id="gender", name="personalDataGender", class="required")
 				option(value="M") M
 				option(value="F") F
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="address") Domicilio
-				input(type="text", id="address", name="personalData.address", class="required")
+				input(type="text", id="address", name="personalDataAddress", class="required")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="city") Localidad
-				input(type="text", id="city", name="personalData.city", class="required")
+				input(type="text", id="city", name="personalDataCity", class="required")
