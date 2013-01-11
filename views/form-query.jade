@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  div(data-role="header", data-theme="a", data-position="fixed", data-id="topbar", data-add-back-btn="true")
+    a(data-role="button", data-rel="back", data-theme="b") Volver
+    h3 Buscar Paciente
+    a(data-role="button", href="/logout", data-theme="b") Salir
+  div(data-role="content")
+    h2 Bienvenido #{username.user}
+    h3 Ingresa un Nombre o Apellido
+    form(role="search", class="ui-listview-filter ui-bar-c", data-theme="a")
+    ul(data-role="listview", data-filter="true", class="ui-listview", data-theme="c", data-split-icon="gear", data-split-theme="d")
+        li(data-role="list-divider", role="heading") Nombres y Descripción
+        each patient, i in Patients
+            li
+                a(href="/form-query/patient/edit/#{patient.personalDataSSN}")
+                    h3(class="ui-li-heading") #{patient.personalDataFname} #{patient.personalDataLname}
+                    p(class="ui-li-desc") HC: #{patient.personalDataMHNum}
+                a(href="#delete-popup-#{patient.personalDataSSN}", data-rel="popup", data-position-to="window", title="Propiedades")
+                div(data-role="popup", data-corners="true", id="delete-popup-#{patient.personalDataSSN}", data-overlay-shadow="true", data-overlay-theme="a", data-theme="c")
+                  div(data-role="header", data-theme="a", role="banner")
+                    a(href="#", data-rel="back", data-role="button", data-theme="a", data-iconpos="notext", class="ui-btn-right", data-icon="delete")
+                    h1(data-role="heading") Propiedades
+                  div(data-role="content", data-theme="d", role="main")
+                    h4 Qué desea hacer con el registro?
+                    div(class="ui-grid-a")
+                        div(class="ui-block-a")
+                           a(href="/form-query/patient/edit/#{patient.personalDataSSN}", data-role="button", data-theme="a") Editar
+                        div(class="ui-block-b")
+                           a(href="/form-query/patient/delete/#{patient.personalDataSSN}", data-role="button", data-theme="b") Borrar                           
+  div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
+    div(data-role="navbar", role="navigation", data-iconpos="top")
+        ul(class="ui-grid-b")
+            li(class="ui-block-a")
+                a(href="/form-input", data-icon="plus", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Nuevo Paciente
+            li(class="ui-block-b")
+                a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Buscar Paciente
+            li(class="ui-block-c")
+                a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Estadísticas
+  

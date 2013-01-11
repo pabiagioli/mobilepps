@@ -7,8 +7,8 @@ block content
     a(data-role="button", href="/logout", data-theme="b") Salir
   div(data-role="content")
     h2 Bienvenido #{username.user}
-    h3 Completa el formulario
-    form(id="survey-form", onsubmit="javascript:survey(this);return false;")
+    h3 #{messages}
+    form(id="survey-form", action="/form-process", method="post")
       include form/personaldata
       include form/parentmh
       include form/personal-history
@@ -17,16 +17,17 @@ block content
       include form/vital-signs
       include form/measures
       include form/physical-exam
-    input(type="submit", value="Guardar", onclick="javascript:survey(this);")
+      input(type="reset", value="Vaciar")
+      input(type="submit", value="Guardar")
     div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
       div(data-role="navbar", role="navigation", data-iconpos="top")
         ul(class="ui-grid-b")
           li(class="ui-block-a")
             a(href="/form-input", data-icon="plus", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Nuevo Paciente
           li(class="ui-block-b")
-            a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn ui-btn-inline ui-btn-icon-top ui-btn-up-a") Buscar Paciente
+            a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Buscar Paciente
           li(class="ui-block-c")
-            a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn ui-btn-inline ui-btn-icon-top ui-btn-up-a") Estadísticas
+            a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Estadísticas
     div(data-role="popup", id="success-popup", data-overlay-theme="a", data-theme="c")
       div(data-role="header", data-theme="a", class="ui-corner-top ui-header ui-bar-a", role="banner")
         h3 Formulario enviado
@@ -34,9 +35,6 @@ block content
         h4 Formulario enviado con éxito
         a(href="#", data-rel="back", data-role="button", data-theme="a") Cerrar
     script
-      function survey(form){
-        $('#success-popup').popup('open');
-      }
       function toggleCOD(sel,number){
         var value = sel.options[sel.selectedIndex].value;
         if (value == "true")
@@ -77,11 +75,11 @@ block content
         return age;
       }
       //init script
-      $('select[name*="alive"]').each(
+      $('select[name*="Alive"]').each(
         function(index,element){
           toggleCOD(element,index+1);
           });
-      toggleTreatment($('#treatment')[0]);
+      toggleTreatment($('#personalMHTreatment')[0]);
       toggleTobacco($('#smoking')[0]);
       toggleActivity($('#recently')[0],'recently');
       toggleActivity($('#previous')[0],'previous');
