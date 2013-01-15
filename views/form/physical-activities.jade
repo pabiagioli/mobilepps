@@ -7,52 +7,52 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 					div(class="ui-block-a")
 						label(for="recently") Actualmente
 					div(class="ui-block-b")
-						select(name="physicalActRecently", id="recently", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'recently');")
+						select(name="physicalActRecently", id="recently", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'recently');", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecently}")
 							option(value='off') No
 							option(value='on') Si
 			fieldset(data-role="controlgroup", id="div-recently-desc")
 				div(data-role="fieldcontain")
 					label(for="RecentlyLeisure") Esparcimiento
-					input(type="checkbox", id="RecentlyLeisure", name="physicalActRecentlyLeisure",  placeholder="cig/dia")
+					input(type="checkbox", id="RecentlyLeisure", name="physicalActRecentlyLeisure",  placeholder="cig/dia", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecentlyLeisure}")
 					label(for="RecentlyCompetitive") Competitivo
-					input(type="checkbox", id="RecentlyCompetitive", name="physicalActRecentlyCompetitive",  placeholder="años")
+					input(type="checkbox", id="RecentlyCompetitive", name="physicalActRecentlyCompetitive",  placeholder="años", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecentlyCompetitive}")
 				div(data-role="fieldcontain")
 					label(for="recentlydesc") Cuál es la actividad?
-					input(type="text", id="recentlydesc", name="physicalActRecentlyDesc")
+					input(type="text", id="recentlydesc", name="physicalActRecentlyDesc", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecentlyDesc}")
 				div(data-role="fieldcontain")
 					label(for="recentlyfreq") frecuencia semanal
-					input(type="number", id="recentlyfreq", name="physicalActRecentlyFreq",  placeholder="dias/semana")
+					input(type="number", id="recentlyfreq", name="physicalActRecentlyFreq",  placeholder="dias/semana", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecentlyFreq}")
 				div(data-role="fieldcontain")
 					label(for="recentlyhours") Horas por vez
-					input(type="number", id="recentlyhours", name="physicalActRecentlyHours", placeholder="horas")
+					input(type="number", id="recentlyhours", name="physicalActRecentlyHours", placeholder="horas", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecentlyHours}")
 			hr
 			fieldset(data-role="controlgroup")
 				div(class="ui-grid-a")
 					div(class="ui-block-a")
 						label(for="previous") Anteriormente
 					div(class="ui-block-b")
-						select(name="physicalActPrevious", id="previous", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'previous');")
+						select(name="physicalActPrevious", id="previous", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'previous');", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPrevious}")
 							option(value='off') No
 							option(value='on') Si
 			fieldset(data-role="controlgroup", id="div-previous-desc")
 				div(data-role="fieldcontain")
 					label(for="PreviousLeisure") Esparcimiento
-					input(type="checkbox", id="PreviousLeisure", name="physicalActPreviousLeisure",  placeholder="cig/dia")
+					input(type="checkbox", id="PreviousLeisure", name="physicalActPreviousLeisure",  placeholder="cig/dia", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousLeisure}")
 					label(for="competitive") Competitivo
-					input(type="checkbox", id="competitive", name="physicalActPreviousCompetitive",  placeholder="años")
+					input(type="checkbox", id="competitive", name="physicalActPreviousCompetitive",  placeholder="años", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousCompetitive}")
 				div(data-role="fieldcontain")
 					label(for="previousdesc") Cuál es la actividad?
-					input(type="text", id="previousdesc", name="physicalActPreviousDesc")
+					input(type="text", id="previousdesc", name="physicalActPreviousDesc", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousDesc}")
 				div(data-role="fieldcontain")
 					label(for="previousdesc") De qué edad a qué edad?
 					div(class="ui-grid-a")
 						div(class="ui-block-a")
-							input(type="number", id="previousAgeIni", name="physicalActPreviousAgeIni", placeholder="desde")
+							input(type="number", id="previousAgeIni", name="physicalActPreviousAgeIni", placeholder="desde", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousAgeIni}")
 						div(class="ui-block-b")
-							input(type="number", id="previousAgeEnd", name="physicalActPreviousAgeEnd", placeholder="hasta")
+							input(type="number", id="previousAgeEnd", name="physicalActPreviousAgeEnd", placeholder="hasta", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousAgeEnd}")
 				div(data-role="fieldcontain")
 					label(for="previousfreq") frecuencia semanal
-					input(type="number", id="previousfreq", name="physicalActPreviousFreq",  placeholder="dias/semana")
+					input(type="number", id="previousfreq", name="physicalActPreviousFreq",  placeholder="dias/semana", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousFreq}")
 				div(data-role="fieldcontain")
 					label(for="previoushours") Horas por vez
-					input(type="number", id="previoushours", name="physicalActPreviousHours", placeholder="horas")
+					input(type="number", id="previoushours", name="physicalActPreviousHours", placeholder="horas", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPreviousHours}")

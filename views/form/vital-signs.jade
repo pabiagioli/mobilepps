@@ -7,18 +7,18 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 					div(class="ui-block-a")
 						label(for="pulse") Pulso
 					div(class="ui-block-b")
-						select(name="vitalSigns.pulse", id="pulse", data-theme='a', data-role='slider')
+						select(name="vitalSignsPulse", id="vitalSignsPulse", data-theme='a', data-role='slider', value="#{typeof(patient) == 'undefined'?'':patient.vitalSignsPulse}")
 							option(value='off') Regular
 							option(value='on') Irregular
 					div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="freq") Frecuencia
-				input(type="text", id="freq", name="vitalSigns.freq")
+				input(type="text", id="vitalSignsFreq", name="vitalSignsFreq", value="#{typeof(patient) == 'undefined'?'':patient.vitalSignsFreq}")
 		div(data-role="fieldcontain")
 					label(for="bloodPressure") Tension Arterial en mmHg
 					div(class="ui-grid-a")
 						div(class="ui-block-a")
-							input(type="number", id="bloodPressureSist", name="vitalSigns.bloodPressureSist", placeholder="Sistólica")
+							input(type="number", id="bloodPressureSist", name="vitalSignsBloodPressureSistolic", placeholder="Sistólica", value="#{typeof(patient) == 'undefined'?'':patient.vitalSignsBloodPressureSistolic}")
 						div(class="ui-block-b")
-							input(type="number", id="bloodPressureDiast", name="vitalSigns.bloodPressureDiast", placeholder="Diastólica")
+							input(type="number", id="bloodPressureDiast", name="vitalSignsBloodPressureDiastolic", placeholder="Diastólica", value="#{typeof(patient) == 'undefined'?'':patient.vitalSignsBloodPressureSistolic}")
 

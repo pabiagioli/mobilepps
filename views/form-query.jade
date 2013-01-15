@@ -7,15 +7,15 @@ block content
     a(data-role="button", href="/logout", data-theme="b") Salir
   div(data-role="content")
     h2 Bienvenido #{username.user}
-    h3 Ingresa un Nombre o Apellido
+    h3(id="messages-header") #{messages}
     form(role="search", class="ui-listview-filter ui-bar-c", data-theme="a")
-    ul(data-role="listview", data-filter="true", class="ui-listview", data-theme="c", data-split-icon="gear", data-split-theme="d")
+    ul(id="patient-list", data-role="listview", data-filter="true", class="ui-listview", data-theme="c", data-split-icon="gear", data-split-theme="d")
         li(data-role="list-divider", role="heading") Nombres y Descripción
         each patient, i in Patients
             li
                 a(href="/form-query/patient/edit/#{patient.personalDataSSN}")
                     h3(class="ui-li-heading") #{patient.personalDataFname} #{patient.personalDataLname}
-                    p(class="ui-li-desc") HC: #{patient.personalDataMHNum}
+                    p(class="ui-li-desc") DNI: #{patient.personalDataSSN}, HC: #{patient.personalDataMHNum}
                 a(href="#delete-popup-#{patient.personalDataSSN}", data-rel="popup", data-position-to="window", title="Propiedades")
                 div(data-role="popup", data-corners="true", id="delete-popup-#{patient.personalDataSSN}", data-overlay-shadow="true", data-overlay-theme="a", data-theme="c")
                   div(data-role="header", data-theme="a", role="banner")
@@ -27,7 +27,7 @@ block content
                         div(class="ui-block-a")
                            a(href="/form-query/patient/edit/#{patient.personalDataSSN}", data-role="button", data-theme="a") Editar
                         div(class="ui-block-b")
-                           a(href="/form-query/patient/delete/#{patient.personalDataSSN}", data-role="button", data-theme="b") Borrar                           
+                           a(href="#", data-role="button", data-theme="b", data-rel="back", onclick="javascript:deletePatient(#{patient.personalDataSSN});") Borrar
   div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
     div(data-role="navbar", role="navigation", data-iconpos="top")
         ul(class="ui-grid-b")
@@ -37,4 +37,19 @@ block content
                 a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Buscar Paciente
             li(class="ui-block-c")
                 a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Estadísticas
-  
+  script
+    function deletePatient(ssn){
+        $.ajax({
+          url: "/form-query/patient/delete/"+ssn,
+          type: "get",
+          dataType: 'html',
+          data: ssn,
+          success: function(data){
+            $('#patient-list li').remove();
+            $('#patient-list').html($('#patient-list', data).html());
+            $('#patient-list').trigger('create');
+            $('#patient-list').listview('refresh');
+          }
+          });
+
+    }

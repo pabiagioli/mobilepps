@@ -6,14 +6,15 @@ var mongoose = require('mongoose'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
+	moment = require('moment'),
 	app = express();
 
 /* My Modules and Classes */
-/*var DataBase = require("./model/Patient");*/
+var DataBase = require("./model/Patient");
 
 
 /* DB Start with DAO */
-/*var DAOimpl = function(url,dbname,dbuser,dbpass){
+var DAOimpl = function(url,dbname,dbuser,dbpass){
 
 	var connStr ='mongodb://'; 
 	
@@ -26,7 +27,7 @@ var mongoose = require('mongoose'),
 	
 	return mongoose.connect(connStr, function (err) {
 		if (err) {
-			console.log('Connection to MongoDB error');
+			console.log('Connection to MongoDB error',err);
 			return err;
 		}
 		console.log("Connection to MongoDB successful");
@@ -36,7 +37,7 @@ var mongoose = require('mongoose'),
 };
 
 var DAO = new DAOimpl('localhost', 'nodepps',null,null);
-*/
+
 /* 
 ******************************
 *
@@ -75,7 +76,10 @@ passport.use(new LocalStrategy(
 				console.log(err);
 			}else{
 		*/		
-				return done(null,{user:username});
+				if(username == 'mo2013')
+					return done(null,{user:username});
+				else
+					return done(null, false, { message: 'Incorrect username.' });
 		/*	}
 		});*/
 		
@@ -136,7 +140,7 @@ app.get('/form-query',ensureLoggedIn('/login'),function(req,res){
 		if(err)
 			console.log(err);
 		console.log('Docs = ', JSON.stringify(docs));
-		res.render('form-query.jade', {username:req.user, Patients: docs });
+		res.render('form-query.jade', {username:req.user, Patients: docs, messages: "Ingresa un Nombre o Apellido"});
 	});
 	
 	
@@ -146,7 +150,47 @@ app.post('/form-query',ensureLoggedIn('/login'),function(req,res){
 		if(err)
 			console.log(err);
 		console.log('Docs = ', JSON.stringify(docs));
-		res.render('form-query.jade', {username:req.user, Patients: docs });
+		res.render('form-query.jade', {username:req.user, Patients: docs , messages: "Ingresa un Nombre o Apellido"});
+	});
+	
+	
+});
+
+app.get('/form-query/patient/delete/:ssn',ensureLoggedIn('/login'),function(req,res){
+	DataBase.Patient.findOne({personalDataSSN: req.params.ssn}, function (err,patient){
+		if(err)
+			console.log(err);
+		console.log('Docs = ', JSON.stringify(patient));
+		patient.remove();
+		//res.render('form-query.jade', {username:req.user, Patients: docs });
+		res.redirect('/form-query');
+	});
+	
+	
+});
+
+app.get('/form-query/patient/edit/:ssn',ensureLoggedIn('/login'),function(req,res){
+	DataBase.Patient.findOne({personalDataSSN: req.params.ssn}, function (err,patient){
+		if(err)
+			console.log(err);
+		
+		var result = patient;
+		var birth = moment(patient.personalDataBday).format("YYYY-MM-DD"); //This works with personalDataBday = Date
+		result.personalDataBday = birth; //This doesn't with personalDataBday = Date
+
+		console.log('this is from GET',{username:req.user, patient: result , messages: 'HC creada por '+patient.author});
+		res.render('form-input.jade', {username:req.user, patient: result , messages: 'HC creada por '+patient.author});
+	});
+	
+	
+});
+
+app.post('/form-query/patient/edit/:ssn',ensureLoggedIn('/login'),function(req,res){
+	DataBase.Patient.findOne({personalDataSSN: req.params.ssn}, function (err,patient){
+		if(err)
+			console.log(err);
+		
+		res.render('form-input.jade', {username:req.user, patient: patient , messages: 'HC creada por '+patient.author});
 	});
 	
 	
@@ -171,82 +215,95 @@ app.get('/admin',function(req,res){
 });
 
 app.post('/form-process',ensureLoggedIn('/login'),function(req,res){
+
+	DataBase.Patient.findOne({personalDataSSN: req.body.personalDataSSN}, function (err,patient){
+		if(err)
+			console.log(err);
+		console.log("entré al callback");
+		if(patient == null){
+			console.log("tuve que crear uno");
+			patient = new DataBase.Patient();
+			patient.created = new Date();
+			patient.author = req.user.user;
+		}
+			
+		patient.personalDataMHNum = req.body.personalDataMHNum;
+		patient.personalDataFname = req.body.personalDataFname;
+		patient.personalDataLname = req.body.personalDataLname;
+		patient.personalDataSSN = req.body.personalDataSSN;
+		patient.personalDataBday = req.body.personalDataBday;
+		patient.personalDataAge = req.body.personalDataAge;
+		patient.personalDataGender = req.body.personalDataGender;
+		patient.personalDataAddress = req.body.personalDataAddress;
+		patient.personalDataCity = req.body.personalDataCity;
+		patient.fatherAlive = (req.body.fatherAlive == 'true')?true:false;
+		patient.fatherCOD = req.body.fatherCOD;
+		patient.fatherDBT = (req.body.fatherDBT == 'on')?true:false;
+		patient.fatherHTA = (req.body.fatherHTA == 'on')?true:false;
+		patient.fatherDislipedemia = (req.body.fatherDislipedemia == 'on')?true:false;
+		patient.fatherThyroid = (req.body.fatherThyroid == 'on')?true:false;
+		patient.fatherChagas = (req.body.fatherChagas == 'on')?true:false;
+		patient.fatherOthers = req.body.fatherOthers;
+		patient.motherAlive = (req.body.motherAlive == 'true')?true:false;
+		patient.motherCOD = req.body.motherCOD;
+		patient.motherDBT = (req.body.motherDBT == 'on')?true:false;
+		patient.motherHTA = (req.body.motherHTA == 'on')?true:false;
+		patient.motherDislipedemia = (req.body.motherDislipedemia == 'on')?true:false;
+		patient.motherThyroid = (req.body.motherThyroid == 'on')?true:false;
+		patient.motherChagas = (req.body.motherChagas == 'on')?true:false;
+		patient.motherOthers = req.body.motherOthers;
+		patient.personalMHDBT = (req.body.personalMHDBT == 'on')?true:false;
+		patient.personalMHHTA = (req.body.personalMHHTA == 'on')?true:false;
+		patient.personalMHDislipedemia = (req.body.personalMHDislipedemia == 'on')?true:false;
+		patient.personalMHThyroid = (req.body.personalMHThyroid == 'on')?true:false;
+		patient.personalMHChagas = (req.body.personalMHChagas == 'on')?true:false;
+		patient.personalMHArhythmia = (req.body.personalMHArhythmia == 'on')?true:false;
+		patient.personalMHOthers = req.body.personalMHOthers;
+		patient.personalMHTreatment = (req.body.personalMHTreatment == 'on')?true:false;
+		patient.personalMHTreatdesc = req.body.personalMHTreatdesc;
+		patient.personalMHSmoking = (req.body.personalMHSmoking == 'on')?true:false;
+		patient.personalMHSmokeDay = req.body.personalMHSmokeDay;
+		patient.personalMHSmokeYears = req.body.personalMHSmokeYears;
+		patient.personalMHSmokeAbstinence = req.body.personalMHSmokeAbstinence;
+		patient.glycemiaSched = req.body.glycemiaSched;
+		patient.glycemiaFasting = (req.body.glycemiaFasting == 'on')?true:false;
+		patient.glycemiaVal = req.body.glycemiaVal;
+		patient.glycemiaLastmeal = req.body.glycemiaLastmeal;
+		patient.physicalActRecently = (req.body.physicalActRecently == 'on')?true:false;
+		patient.physicalActRecentlyLeisure = req.body.physicalActRecentlyLeisure;
+		patient.physicalActRecentlyCompetition = req.body.physicalActRecentlyCompetition;
+		patient.physicalActRecentlyDesc = req.body.physicalActRecentlyDesc;
+		patient.physicalActRecentlyFreq = req.body.physicalActRecentlyFreq;
+		patient.physicalActRecentlyHours = req.body.physicalActRecentlyHours;
+		patient.physicalActPrevious = (req.body.physicalActPrevious == 'on')?true:false;
+		patient.physicalActPreviousLeisure = req.body.physicalActPreviousLeisure;
+		patient.physicalActPreviousCompetition = req.body.physicalActPreviousCompetition;
+		patient.physicalActPreviousDesc = req.body.physicalActPreviousDesc;
+		patient.physicalActPreviousAgeIni = req.body.physicalActPreviousAgeIni;
+		patient.physicalActPreviousAgeEnd = req.body.physicalActPreviousAgeEnd;
+		patient.physicalActPreviousFreq = req.body.physicalActPreviousFreq;
+		patient.physicalActPreviousHours = req.body.physicalActPreviousHours;
+		patient.vitalSignsPulse = (req.body.vitalSignsPulse == 'on')?true:false;
+		patient.vitalSignsPulseFreq = req.body.vitalSignsPulseFreq;
+		patient.vitalSignsPulseRegular = req.body.vitalSignsPulseRegular;
+		patient.vitalSignsBloodPressureSistolic = req.body.vitalSignsBloodPressureSistolic;
+		patient.vitalSignsBloodPressureDiastolic = req.body.vitalSignsBloodPressureDiastolic;
+		patient.measuresSizeNum = req.body.measuresSizeNum;
+		patient.measuresWeight = req.body.measuresWeight;
+		patient.measuresWaist = req.body.measuresWaist;
+		patient.measuresIMC = req.body.measuresIMC;
+		patient.physicalExamInspection = req.body.physicalExamInspection;
+		patient.physicalExamHeartAuscultation = req.body.physicalExamHeartAuscultation;
+		patient.physicalExamMurmurs = (req.body.physicalExamMurmurs == 'on')?true:false;
+		patient.physicalExamMurmursDesc = req.body.physicalExamMurmursDesc;
+		patient.physicalExamPulmonarAuscultation = (req.body.physicalExamPulmonarAuscultation == 'on')?true:false; /* Normal | Hallazgo */
+		patient.physicalExamPulmonarAuscultationDesc = req.body.physicalExamPulmonarAuscultationDesc;
+		patient.save();
+			
+
+		
+		res.render('form-input.jade', {username:req.user, messages: "Paciente guardado con éxito"});
+
+	});	
 	
-	var patient = new DataBase.Patient({
-		created: new Date(),
-		author: null,
-		personalDataMHNum: req.body.personalDataMHNum,
-		personalDataFname: req.body.personalDataFname,
-		personalDataLname: req.body.personalDataLname,
-		personalDataSSN: req.body.personalDataSSN,
-		personalDataBday: req.body.personalDataBday,
-		personalDataAge: req.body.personalDataAge,
-		personalDataGender: req.body.personalDataGender,
-		personalDataAddress: req.body.personalDataAddress,
-		personalDataCity: req.body.personalDataCity,
-		fatherAlive: (req.body.fatherAlive == 'true')?true:false,
-		fatherCOD: req.body.fatherCOD,
-		fatherDBT: (req.body.fatherDBT == 'on')?true:false,
-		fatherHTA: (req.body.fatherHTA == 'on')?true:false,
-		fatherDislipedemia: (req.body.fatherDislipedemia == 'on')?true:false,
-		fatherThyroid: (req.body.fatherThyroid == 'on')?true:false,
-		fatherChagas: (req.body.fatherChagas == 'on')?true:false,
-		fatherOthers: req.body.fatherOthers,
-		motherAlive: (req.body.motherAlive == 'true')?true:false,
-		motherCOD: req.body.motherCOD,
-		motherDBT: (req.body.motherDBT == 'on')?true:false,
-		motherHTA: (req.body.motherHTA == 'on')?true:false,
-		motherDislipedemia: (req.body.motherDislipedemia == 'on')?true:false,
-		motherThyroid: (req.body.motherThyroid == 'on')?true:false,
-		motherChagas: (req.body.motherChagas == 'on')?true:false,
-		motherOthers: req.body.motherOthers,
-		personalMHDBT: (req.body.personalMHDBT == 'on')?true:false,
-		personalMHHTA: (req.body.personalMHHTA == 'on')?true:false,
-		personalMHDislipedemia: (req.body.personalMHDislipedemia == 'on')?true:false,
-		personalMHThyroid: (req.body.personalMHThyroid == 'on')?true:false,
-		personalMHChagas: (req.body.personalMHChagas == 'on')?true:false,
-		personalMHArhythmia: (req.body.personalMHArhythmia == 'on')?true:false,
-		personalMHOthers: req.body.personalMHOthers,
-		personalMHTreatment: (req.body.personalMHTreatment == 'on')?true:false,
-		personalMHTreatdesc: req.body.personalMHTreatdesc,
-		personalMHSmoking: (req.body.personalMHSmoking == 'on')?true:false,
-		personalMHSmokeDay: req.body.personalMHSmokeDay,
-		personalMHSmokeYears: req.body.personalMHSmokeYears,
-		personalMHSmokeAbstinence: req.body.personalMHSmokeAbstinence,
-		glycemiaSched: req.body.glycemiaSched,
-		glycemiaFasting: (req.body.glycemiaFasting == 'on')?true:false,
-		glycemiaVal: req.body.glycemiaVal,
-		glycemiaLastmeal: req.body.glycemiaLastmeal,
-		physicalActRecently: (req.body.physicalActRecently == 'on')?true:false,
-		physicalActRecentlyLeisure: req.body.physicalActRecentlyLeisure,
-		physicalActRecentlyCompetition: req.body.physicalActRecentlyCompetition,
-		physicalActRecentlyDesc: req.body.physicalActRecentlyDesc,
-		physicalActRecentlyFreq: req.body.physicalActRecentlyFreq,
-		physicalActRecentlyHours: req.body.physicalActRecentlyHours,
-		physicalActPrevious: (req.body.physicalActPrevious == 'on')?true:false,
-		physicalActPreviousLeisure: req.body.physicalActPreviousLeisure,
-		physicalActPreviousCompetition: req.body.physicalActPreviousCompetition,
-		physicalActPreviousDesc: req.body.physicalActPreviousDesc,
-		physicalActPreviousAgeIni: req.body.physicalActPreviousAgeIni,
-		physicalActPreviousAgeEnd: req.body.physicalActPreviousAgeEnd,
-		physicalActPreviousFreq: req.body.physicalActPreviousFreq,
-		physicalActPreviousHours: req.body.physicalActPreviousHours,
-		vitalSignsPulse: (req.body.vitalSignsPulse == 'on')?true:false,
-		vitalSignsPulseFreq: req.body.vitalSignsPulseFreq,
-		vitalSignsPulseRegular: req.body.vitalSignsPulseRegular,
-		vitalSignsBloodPressureSistolic: req.body.vitalSignsBloodPressureSistolic,
-		vitalSignsBloodPressureDiastolic: req.body.vitalSignsBloodPressureDiastolic,
-		measuresSizeNum: req.body.measuresSizeNum,
-		measuresWeight: req.body.measuresWeight,
-		measuresWaist: req.body.measuresWaist,
-		measuresIMC: req.body.measuresIMC,
-		physicalExamInspection: req.body.physicalExamInspection,
-		physicalExamHeartAuscultation: req.body.physicalExamHeartAuscultation,
-		physicalExamMurmurs: (req.body.physicalExamMurmurs == 'on')?true:false,
-		physicalExamMurmursDesc: req.body.physicalExamMurmursDesc,
-		physicalExamPulmonarAuscultation: (req.body.physicalExamPulmonarAuscultation == 'on')?true:false, /* Normal | Hallazgo */
-		physicalExamPulmonarAuscultationDesc: req.body.physicalExamPulmonarAuscultationDesc
-	});
-	patient.save();
-	res.render('form-input.jade', {username:req.user, messages: "Paciente guardado con éxito"});
 });

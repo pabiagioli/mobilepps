@@ -19,69 +19,82 @@ block content
       include form/physical-exam
       input(type="reset", value="Vaciar")
       input(type="submit", value="Guardar")
-    div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
-      div(data-role="navbar", role="navigation", data-iconpos="top")
-        ul(class="ui-grid-b")
-          li(class="ui-block-a")
-            a(href="/form-input", data-icon="plus", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Nuevo Paciente
-          li(class="ui-block-b")
-            a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Buscar Paciente
-          li(class="ui-block-c")
-            a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Estadísticas
-    div(data-role="popup", id="success-popup", data-overlay-theme="a", data-theme="c")
-      div(data-role="header", data-theme="a", class="ui-corner-top ui-header ui-bar-a", role="banner")
-        h3 Formulario enviado
-      div(data-role="content", data-theme="d", class="ui-corner-bottom ui-content ui-body-d", role="main")
-        h4 Formulario enviado con éxito
-        a(href="#", data-rel="back", data-role="button", data-theme="a") Cerrar
-    script
-      function toggleCOD(sel,number){
-        var value = sel.options[sel.selectedIndex].value;
-        if (value == "true")
-          $('#div-cod-'+number).fadeOut();
-        else
-          $('#div-cod-'+number).fadeIn();
+  div(data-role="footer", data-theme="a", data-position="fixed", data-id="menu")
+    div(data-role="navbar", role="navigation", data-iconpos="top")
+      ul(class="ui-grid-b")
+        li(class="ui-block-a")
+          a(href="/form-input", data-icon="plus", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true", class="ui-btn-active ui-state-persist") Nuevo Paciente
+        li(class="ui-block-b")
+          a(href="/form-query", data-icon="search", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Buscar Paciente
+        li(class="ui-block-c")
+          a(href="/stats", data-icon="info", data-corners="false", data-shadow="false", data-iconshadow="true", data-wrapperels="span", data-iconpos="top", data-theme="a", data-inline="true") Estadísticas
+  div(data-role="popup", id="success-popup", data-overlay-theme="a", data-theme="c")
+    div(data-role="header", data-theme="a", class="ui-corner-top ui-header ui-bar-a", role="banner")
+      h3 Formulario enviado
+    div(data-role="content", data-theme="d", class="ui-corner-bottom ui-content ui-body-d", role="main")
+      h4 Formulario enviado con éxito
+      a(href="#", data-rel="back", data-role="button", data-theme="a") Cerrar
+  script
+    function toggleCOD(sel,number){
+      var value = sel.options[sel.selectedIndex].value;
+      if (value == "true")
+        $('#div-cod-'+number).fadeOut();
+      else
+        $('#div-cod-'+number).fadeIn();
+    }
+    function toggleTreatment(sel){
+      var value = sel.options[sel.selectedIndex].value;
+      if (value == "on")
+        $('#div-treatdesc').fadeIn();
+      else
+        $('#div-treatdesc').fadeOut();
+    }
+    function toggleTobacco(sel){
+      var value = sel.options[sel.selectedIndex].value;
+      if (value == "on")
+        $('#div-tobacco-desc').fadeIn();
+      else
+        $('#div-tobacco-desc').fadeOut();
+    }
+    function toggleActivity(sel,kind){
+      var value = sel.options[sel.selectedIndex].value;
+      if (value == "on")
+        $('#div-'+kind+'-desc').fadeIn();
+      else
+        $('#div-'+kind+'-desc').fadeOut();
+    }
+    function getAge(dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString.value);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
       }
-      function toggleTreatment(sel){
-        var value = sel.options[sel.selectedIndex].value;
-        if (value == "on")
-          $('#div-treatdesc').fadeIn();
-        else
-          $('#div-treatdesc').fadeOut();
+      $('#age').val(age);
+      return age;
+    }
+    function getIMC(){
+      var weight = new Number($('#weight').val());
+      var tall = new Number($('#sizeNum').val());
+      var result = 0;
+      try{
+        result = weight/(tall * tall);
+      }catch(e){
+        result = 0;
       }
-      function toggleTobacco(sel){
-        var value = sel.options[sel.selectedIndex].value;
-        if (value == "on")
-          $('#div-tobacco-desc').fadeIn();
-        else
-          $('#div-tobacco-desc').fadeOut();
-      }
-      function toggleActivity(sel,kind){
-        var value = sel.options[sel.selectedIndex].value;
-        if (value == "on")
-          $('#div-'+kind+'-desc').fadeIn();
-        else
-          $('#div-'+kind+'-desc').fadeOut();
-      }
-      function getAge(dateString) {
-        var today = new Date();
-        var birthDate = new Date(dateString.value);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        $('#age').val(age);
-        return age;
-      }
-      //init script
-      $('select[name*="Alive"]').each(
-        function(index,element){
-          toggleCOD(element,index+1);
-          });
-      toggleTreatment($('#personalMHTreatment')[0]);
-      toggleTobacco($('#smoking')[0]);
-      toggleActivity($('#recently')[0],'recently');
-      toggleActivity($('#previous')[0],'previous');
-      toggleActivity($('#murmurs')[0],'murmurs');
-      toggleActivity($('#pulmonarAuscultation')[0],'pulmonarAuscultation');
+      
+      $('#imc').val(result);
+    }
+
+    //init script
+    $('select[name*="Alive"]').each(
+      function(index,element){
+        toggleCOD(element,index+1);
+        });
+    toggleTreatment($('#personalMHTreatment')[0]);
+    toggleTobacco($('#smoking')[0]);
+    toggleActivity($('#recently')[0],'recently');
+    toggleActivity($('#previous')[0],'previous');
+    toggleActivity($('#murmurs')[0],'murmurs');
+    toggleActivity($('#pulmonarAuscultation')[0],'pulmonarAuscultation');

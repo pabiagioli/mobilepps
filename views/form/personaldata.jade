@@ -4,37 +4,37 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="mhnum") Historia Clinica Nº
-				input(type="text", id="mhnum", name="personalDataMHNum")
+				input(type="text", id="mhnum", name="personalDataMHNum", value="#{typeof(patient) == 'undefined'?'':patient.personalDataMHNum}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="fname") Nombres
-				input(type="text", id="fname", name="personalDataFname")
+				input(type="text", id="fname", name="personalDataFname", value="#{typeof(patient) == 'undefined'?'':patient.personalDataFname}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="lname") Apellido
-				input(type="text", id="lname", name="personalDataLname")
+				input(type="text", id="lname", name="personalDataLname", value="#{typeof(patient) == 'undefined'?'':patient.personalDataLname}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="ssn") DNI
-				input(type="text", id="ssn", name="personalDataSSN")
+				input(type="text", id="ssn", name="personalDataSSN", value="#{typeof(patient) == 'undefined'?'':patient.personalDataSSN}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="bday") Fecha de Nacimiento
-				input(type="date", id="bday", name="personalDataBday", onchange="javascript:getAge(this)")
+				input(type="date", id="bday", name="personalDataBday", onchange="javascript:getAge(this)", value="#{typeof(patient) == 'undefined'?'':patient.personalDataBday}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="age") Edad
-				input(type="number", id="age", name="personalDataAge", readonly="readonly")
+				input(type="number", id="age", name="personalDataAge", readonly="readonly", value="#{typeof(patient) == 'undefined'?'':patient.personalDataAge}", min="0")
 		div(data-role="fieldcontain")
 			label(for="gender", class="select") Sexo
-			select(id="gender", name="personalDataGender")
+			select(id="gender", name="personalDataGender", value="#{typeof(patient) == 'undefined'?'':patient.personalDataGender}")
 				option(value="M") M
 				option(value="F") F
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="address") Domicilio
-				input(type="text", id="address", name="personalDataAddress")
+				input(type="text", id="address", name="personalDataAddress", value="#{typeof(patient) == 'undefined'?'':patient.personalDataAddress}")
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="city") Localidad
-				input(type="text", id="city", name="personalDataCity")
+				input(type="text", id="city", name="personalDataCity", value="#{typeof(patient) == 'undefined'?'':patient.personalDataCity}")

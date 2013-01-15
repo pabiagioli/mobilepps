@@ -1,7 +1,7 @@
-{ 
-  "name":"pampanetpps",
-  "subdomain":"pampanet-pps",
-  "version":"0.0.1",
+{
+  "name": "pampanetpps",
+  "subdomain": "pampanet-pps",
+  "version": "0.0.1-25",
   "dependencies": {
     "express": "3.0.2",
     "socket.io": "~0.9.10",
@@ -11,12 +11,13 @@
     "connect-ensure-login": "*",
     "mongoose": "*",
     "jade": "*",
-    "nodemon":"*"
+    "nodemon": "*",
+    "moment": "*"
   },
-  "scripts":{ 
-    "start":"app.js"
+  "scripts": {
+    "start": "app.js"
   },
-  "engines":{
+  "engines": {
     "node": "0.8.x"
   }
 }

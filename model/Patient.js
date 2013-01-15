@@ -33,12 +33,12 @@ var User = mongoose.model('User', UserSchema);
 
 var patientSchema = new Schema({
 	created: Date,
-	author: [User],
+	author: String,
 	personalDataMHNum: Number,
 	personalDataFname: String,
 	personalDataLname: String,
-	personalDataSSN: Number,
-	personalDataBday: Date,
+	personalDataSSN: {type: Number, index: true, unique: true},
+	personalDataBday: String, //Not using date
 	personalDataAge: Number,
 	personalDataGender: String,
 	personalDataAddress: String,
@@ -90,7 +90,6 @@ var patientSchema = new Schema({
 	physicalActPreviousAgeEnd: Number,
 	physicalActPreviousFreq: Number,
 	physicalActPreviousHours: Number,
-	vitalSignsPulse: Boolean,
 	vitalSignsPulseFreq: Number,
 	vitalSignsPulseRegular: Boolean,
 	vitalSignsBloodPressureSistolic: Number,
