@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  div(data-role="header", data-theme="a", data-position="fixed", data-id="topbar", data-add-back-btn="true")
-    a(data-role="button", data-rel="back", data-theme="b") Volver
+  div(data-role="header", data-theme="a", data-position="fixed", data-id="topbar")
+    a(data-role="button", data-icon="home", data-theme="b", data-iconpos="notext",data-direction="reverse", href="/", title="home")
     h3 Nuevo Paciente
     a(data-role="button", href="/logout", data-theme="b") Salir
   div(data-role="content")

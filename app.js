@@ -10,33 +10,12 @@ var mongoose = require('mongoose'),
 	app = express();
 
 /* My Modules and Classes */
-var DataBase = require("./model/Patient");
-
+var DataBase = require("./model/Patient"),
+	DAO = require("./model/DAO"),
+	PatientUtils = require("./model/PatientUtils");
 
 /* DB Start with DAO */
-var DAOimpl = function(url,dbname,dbuser,dbpass){
-
-	var connStr ='mongodb://'; 
-	
-	if(dbuser != null || dbpass != null)
-		connStr += dbuser+':'+dbpass+'@'+url+'/'+dbname;
-	else
-		connStr += url+'/'+dbname;
-	
-	console.log("Connecting to %s ...\n",connStr);
-	
-	return mongoose.connect(connStr, function (err) {
-		if (err) {
-			console.log('Connection to MongoDB error',err);
-			return err;
-		}
-		console.log("Connection to MongoDB successful");
-  		// ok we're set
-	});
-	
-};
-
-var DAO = new DAOimpl('localhost', 'nodepps',null,null);
+//DAO.init();
 
 /* 
 ******************************
@@ -174,12 +153,11 @@ app.get('/form-query/patient/edit/:ssn',ensureLoggedIn('/login'),function(req,re
 		if(err)
 			console.log(err);
 		
-		var result = patient;
-		var birth = moment(patient.personalDataBday).format("YYYY-MM-DD"); //This works with personalDataBday = Date
-		result.personalDataBday = birth; //This doesn't with personalDataBday = Date
-
-		console.log('this is from GET',{username:req.user, patient: result , messages: 'HC creada por '+patient.author});
-		res.render('form-input.jade', {username:req.user, patient: result , messages: 'HC creada por '+patient.author});
+		var resultDTO = {};
+		//result.personalDataBday = moment(patient.personalDataBday).format("YYYY-MM-DD");
+		resultDTO = PatientUtils.makeDTO(patient);
+		console.log('this is from GET',{username:req.user, patient: resultDTO , messages: 'HC creada por '+patient.author});
+		res.render('form-input.jade', {username:req.user, patient: resultDTO , messages: 'HC creada por '+patient.author});
 	});
 	
 	
@@ -189,8 +167,9 @@ app.post('/form-query/patient/edit/:ssn',ensureLoggedIn('/login'),function(req,r
 	DataBase.Patient.findOne({personalDataSSN: req.params.ssn}, function (err,patient){
 		if(err)
 			console.log(err);
-		
-		res.render('form-input.jade', {username:req.user, patient: patient , messages: 'HC creada por '+patient.author});
+		//patient.personalDataBday = moment(patient.personalDataBday).format("YYYY-MM-DD");
+		var resultDTO = PatientUtils.makeDTO(patient);
+		res.render('form-input.jade', {username:req.user, patient: resultDTO , messages: 'HC creada por '+patient.author});
 	});
 	
 	
@@ -226,78 +205,9 @@ app.post('/form-process',ensureLoggedIn('/login'),function(req,res){
 			patient.created = new Date();
 			patient.author = req.user.user;
 		}
-			
-		patient.personalDataMHNum = req.body.personalDataMHNum;
-		patient.personalDataFname = req.body.personalDataFname;
-		patient.personalDataLname = req.body.personalDataLname;
-		patient.personalDataSSN = req.body.personalDataSSN;
-		patient.personalDataBday = req.body.personalDataBday;
-		patient.personalDataAge = req.body.personalDataAge;
-		patient.personalDataGender = req.body.personalDataGender;
-		patient.personalDataAddress = req.body.personalDataAddress;
-		patient.personalDataCity = req.body.personalDataCity;
-		patient.fatherAlive = (req.body.fatherAlive == 'true')?true:false;
-		patient.fatherCOD = req.body.fatherCOD;
-		patient.fatherDBT = (req.body.fatherDBT == 'on')?true:false;
-		patient.fatherHTA = (req.body.fatherHTA == 'on')?true:false;
-		patient.fatherDislipedemia = (req.body.fatherDislipedemia == 'on')?true:false;
-		patient.fatherThyroid = (req.body.fatherThyroid == 'on')?true:false;
-		patient.fatherChagas = (req.body.fatherChagas == 'on')?true:false;
-		patient.fatherOthers = req.body.fatherOthers;
-		patient.motherAlive = (req.body.motherAlive == 'true')?true:false;
-		patient.motherCOD = req.body.motherCOD;
-		patient.motherDBT = (req.body.motherDBT == 'on')?true:false;
-		patient.motherHTA = (req.body.motherHTA == 'on')?true:false;
-		patient.motherDislipedemia = (req.body.motherDislipedemia == 'on')?true:false;
-		patient.motherThyroid = (req.body.motherThyroid == 'on')?true:false;
-		patient.motherChagas = (req.body.motherChagas == 'on')?true:false;
-		patient.motherOthers = req.body.motherOthers;
-		patient.personalMHDBT = (req.body.personalMHDBT == 'on')?true:false;
-		patient.personalMHHTA = (req.body.personalMHHTA == 'on')?true:false;
-		patient.personalMHDislipedemia = (req.body.personalMHDislipedemia == 'on')?true:false;
-		patient.personalMHThyroid = (req.body.personalMHThyroid == 'on')?true:false;
-		patient.personalMHChagas = (req.body.personalMHChagas == 'on')?true:false;
-		patient.personalMHArhythmia = (req.body.personalMHArhythmia == 'on')?true:false;
-		patient.personalMHOthers = req.body.personalMHOthers;
-		patient.personalMHTreatment = (req.body.personalMHTreatment == 'on')?true:false;
-		patient.personalMHTreatdesc = req.body.personalMHTreatdesc;
-		patient.personalMHSmoking = (req.body.personalMHSmoking == 'on')?true:false;
-		patient.personalMHSmokeDay = req.body.personalMHSmokeDay;
-		patient.personalMHSmokeYears = req.body.personalMHSmokeYears;
-		patient.personalMHSmokeAbstinence = req.body.personalMHSmokeAbstinence;
-		patient.glycemiaSched = req.body.glycemiaSched;
-		patient.glycemiaFasting = (req.body.glycemiaFasting == 'on')?true:false;
-		patient.glycemiaVal = req.body.glycemiaVal;
-		patient.glycemiaLastmeal = req.body.glycemiaLastmeal;
-		patient.physicalActRecently = (req.body.physicalActRecently == 'on')?true:false;
-		patient.physicalActRecentlyLeisure = req.body.physicalActRecentlyLeisure;
-		patient.physicalActRecentlyCompetition = req.body.physicalActRecentlyCompetition;
-		patient.physicalActRecentlyDesc = req.body.physicalActRecentlyDesc;
-		patient.physicalActRecentlyFreq = req.body.physicalActRecentlyFreq;
-		patient.physicalActRecentlyHours = req.body.physicalActRecentlyHours;
-		patient.physicalActPrevious = (req.body.physicalActPrevious == 'on')?true:false;
-		patient.physicalActPreviousLeisure = req.body.physicalActPreviousLeisure;
-		patient.physicalActPreviousCompetition = req.body.physicalActPreviousCompetition;
-		patient.physicalActPreviousDesc = req.body.physicalActPreviousDesc;
-		patient.physicalActPreviousAgeIni = req.body.physicalActPreviousAgeIni;
-		patient.physicalActPreviousAgeEnd = req.body.physicalActPreviousAgeEnd;
-		patient.physicalActPreviousFreq = req.body.physicalActPreviousFreq;
-		patient.physicalActPreviousHours = req.body.physicalActPreviousHours;
-		patient.vitalSignsPulse = (req.body.vitalSignsPulse == 'on')?true:false;
-		patient.vitalSignsPulseFreq = req.body.vitalSignsPulseFreq;
-		patient.vitalSignsPulseRegular = req.body.vitalSignsPulseRegular;
-		patient.vitalSignsBloodPressureSistolic = req.body.vitalSignsBloodPressureSistolic;
-		patient.vitalSignsBloodPressureDiastolic = req.body.vitalSignsBloodPressureDiastolic;
-		patient.measuresSizeNum = req.body.measuresSizeNum;
-		patient.measuresWeight = req.body.measuresWeight;
-		patient.measuresWaist = req.body.measuresWaist;
-		patient.measuresIMC = req.body.measuresIMC;
-		patient.physicalExamInspection = req.body.physicalExamInspection;
-		patient.physicalExamHeartAuscultation = req.body.physicalExamHeartAuscultation;
-		patient.physicalExamMurmurs = (req.body.physicalExamMurmurs == 'on')?true:false;
-		patient.physicalExamMurmursDesc = req.body.physicalExamMurmursDesc;
-		patient.physicalExamPulmonarAuscultation = (req.body.physicalExamPulmonarAuscultation == 'on')?true:false; /* Normal | Hallazgo */
-		patient.physicalExamPulmonarAuscultationDesc = req.body.physicalExamPulmonarAuscultationDesc;
+		
+		patient = PatientUtils.makeModel(patient,req.body);	
+		
 		patient.save();
 			
 

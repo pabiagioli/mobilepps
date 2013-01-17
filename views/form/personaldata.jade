@@ -4,7 +4,7 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="mhnum") Historia Clinica Nº
-				input(type="text", id="mhnum", name="personalDataMHNum", value="#{typeof(patient) == 'undefined'?'':patient.personalDataMHNum}", required)
+				input(type="number", id="mhnum", name="personalDataMHNum", value="#{typeof(patient) == 'undefined'?'':patient.personalDataMHNum}", required)
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="fname") Nombres
