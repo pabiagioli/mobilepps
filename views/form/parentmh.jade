@@ -4,8 +4,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				select(name="fatherAlive", onchange="javascript:toggleCOD(this,1);",  value="#{typeof(patient) == 'undefined'?'':patient.fatherAlive}")
-					option(value="true") Vivo
-					option(value="false") Fallecido
+					option(value="true", selected=(typeof(patient) == 'undefined'?false:patient.fatherAlive=='true')) Vivo
+					option(value="false", selected=(typeof(patient) == 'undefined'?false:patient.fatherAlive=='false')) Fallecido
 		div(data-role="fieldcontain", id="div-cod-1")
 			fieldset(data-role="controlgroup")
 				label(for="cod1") Causa de Muerte
@@ -34,8 +34,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 		div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				select(name="motherAlive", onchange="javascript:toggleCOD(this,2);", value="#{typeof(patient) == 'undefined'?'':patient.motherAlive}")
-					option(value="true") Viva
-					option(value="false") Fallecida
+					option(value="true", selected=(typeof(patient) == 'undefined'?false:patient.motherAlive=='true')) Viva
+					option(value="false", selected=(typeof(patient) == 'undefined'?false:patient.fatherAlive=='false')) Fallecida
 		div(data-role="fieldcontain", id="div-cod-2")
 			fieldset(data-role="controlgroup")
 				label(for="cod2") Causa de Muerte

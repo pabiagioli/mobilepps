@@ -8,8 +8,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 						label(for="pulse") Pulso
 					div(class="ui-block-b")
 						select(name="vitalSignsPulse", id="vitalSignsPulse", data-theme='a', data-role='slider', value="#{typeof(patient) == 'undefined'?'':patient.vitalSignsPulse}")
-							option(value='off') Regular
-							option(value='on') Irregular
+							option(value='off', selected=(typeof(patient) == 'undefined'?false:patient.vitalSignsPulse=='off')) Regular
+							option(value='on', selected=(typeof(patient) == 'undefined'?false:patient.vitalSignsPulse=='on')) Irregular
 					div(data-role="fieldcontain")
 			fieldset(data-role="controlgroup")
 				label(for="freq") Frecuencia

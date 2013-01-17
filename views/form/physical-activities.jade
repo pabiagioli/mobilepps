@@ -8,8 +8,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 						label(for="recently") Actualmente
 					div(class="ui-block-b")
 						select(name="physicalActRecently", id="recently", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'recently');", value="#{typeof(patient) == 'undefined'?'':patient.physicalActRecently}")
-							option(value='off') No
-							option(value='on') Si
+							option(value='off', selected=(typeof(patient) == 'undefined'?false:patient.physicalActRecently=='off')) No
+							option(value='on', selected=(typeof(patient) == 'undefined'?false:patient.physicalActRecently=='on')) Si
 			fieldset(data-role="controlgroup", id="div-recently-desc")
 				div(data-role="fieldcontain")
 					label(for="RecentlyLeisure") Esparcimiento
@@ -32,8 +32,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 						label(for="previous") Anteriormente
 					div(class="ui-block-b")
 						select(name="physicalActPrevious", id="previous", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'previous');", value="#{typeof(patient) == 'undefined'?'':patient.physicalActPrevious}")
-							option(value='off') No
-							option(value='on') Si
+							option(value='off', selected=(typeof(patient) == 'undefined'?false:patient.physicalActPrevious=='off')) No
+							option(value='on', selected=(typeof(patient) == 'undefined'?false:patient.physicalActPrevious=='on')) Si
 			fieldset(data-role="controlgroup", id="div-previous-desc")
 				div(data-role="fieldcontain")
 					label(for="PreviousLeisure") Esparcimiento

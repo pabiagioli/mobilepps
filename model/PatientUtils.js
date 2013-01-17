@@ -3,6 +3,8 @@ var mongoose = require('mongoose'),
 
 var makeModel = function (patient,dto){
 
+	patient.created = patient.created;
+	patient.author = patient.author;
 	patient.personalDataMHNum = dto.personalDataMHNum;
 	patient.personalDataFname = dto.personalDataFname;
 	patient.personalDataLname = dto.personalDataLname;

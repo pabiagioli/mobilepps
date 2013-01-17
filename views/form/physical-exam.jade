@@ -16,8 +16,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 						label(for="murmurs") Soplos
 					div(class="ui-block-b")
 						select(name="physicalExamMurmurs", id="murmurs", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'murmurs');", value="#{typeof(patient) == 'undefined'?'':patient.physicalExamMurmurs}")
-							option(value='off') No
-							option(value='on') Si
+							option(value='off', selected=(typeof(patient) == 'undefined'?false:patient.physicalExamMurmurs=='off')) No
+							option(value='on', selected=(typeof(patient) == 'undefined'?false:patient.physicalExamMurmurs=='on')) Si
 			fieldset(data-role="controlgroup", id="div-murmurs-desc")
 				div(data-role="fieldcontain")
 					label(for="murmursDesc") Descripción
@@ -29,8 +29,8 @@ div(data-role="collapsible-set", data-collapsed-icon="arrow-r", data-expanded-ic
 						label(for="pulmonarAuscultation") Auscultación Pulmonar
 					div(class="ui-block-b")
 						select(name="physicalExamPulmonarAuscultation", id="pulmonarAuscultation", data-theme='a', data-role='slider', onchange="javascript:toggleActivity(this,'pulmonarAuscultation');",, value="#{typeof(patient) == 'undefined'?'':patient.physicalExamPulmonarAuscultation}")
-							option(value='off') Normal
-							option(value='on') Hallazgo
+							option(value='off', selected=(typeof(patient) == 'undefined'?false:patient.physicalExamPulmonarAuscultation=='off')) Normal
+							option(value='on', selected=(typeof(patient) == 'undefined'?false:patient.physicalExamPulmonarAuscultation=='on')) Hallazgo
 			fieldset(data-role="controlgroup", id="div-pulmonarAuscultation-desc")
 				div(data-role="fieldcontain")
 					label(for="pulmonarAuscultationDesc") Descripción
