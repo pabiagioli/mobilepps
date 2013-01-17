@@ -38,7 +38,7 @@ var makeModel = function (patient,dto){
 	patient.personalMHArhythmia = (dto.personalMHArhythmia != undefined )?true:false;
 	patient.personalMHOthers = dto.personalMHOthers;
 	patient.personalMHTreatment = (dto.personalMHTreatment == 'on')?true:false;
-	patient.personalMHTreatdesc = dto.personalMHTreatdesc;
+	patient.personalMHTreatdesc = dto.personalMHTreatDesc;
 	patient.personalMHSmoking = (dto.personalMHSmoking == 'on')?true:false;
 	patient.personalMHSmokeDay = dto.personalMHSmokeDay;
 	patient.personalMHSmokeYears = dto.personalMHSmokeYears;
@@ -116,7 +116,7 @@ var makeDTO = function (patient){
 	result.personalMHArhythmia = (patient.personalMHArhythmia == true)?'on':'off';
 	result.personalMHOthers = patient.personalMHOthers;
 	result.personalMHTreatment = (patient.personalMHTreatment == true)?'on':'off';
-	result.personalMHTreatdesc = patient.personalMHTreatdesc;
+	result.personalMHTreatDesc = patient.personalMHTreatdesc;
 	result.personalMHSmoking = (patient.personalMHSmoking == true)?'on':'off';
 	result.personalMHSmokeDay = patient.personalMHSmokeDay;
 	result.personalMHSmokeYears = patient.personalMHSmokeYears;
