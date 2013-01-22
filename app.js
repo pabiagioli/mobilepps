@@ -217,3 +217,27 @@ app.post('/form-process',ensureLoggedIn('/login'),function(req,res){
 	});	
 	
 });
+app.post('/syncData',function(req,res){
+	var patientsList = req.body.patients;
+	
+	for(var i=0;i<patientsList.length;i++){
+		console.log(JSON.stringify(patientsList[i]));
+		var singlePat = patientsList[i];
+		DataBase.Patient.findOne({personalDataSSN: patientsList[i].personalDataSSN}, function (err,patient){
+			if(err)
+				console.log(err);
+			console.log(singlePat.created);
+			if(patient == null){
+				patient = new DataBase.Patient();
+				//patient.created = patientsList[i].created;
+				//patient.author = patientsList[i].author;
+			}
+			
+			patient = PatientUtils.makeSyncModel(patient,singlePat);
+			patient.save();
+		});
+			
+	}
+	res.end('It worked!');
+});
+app.locals.pretty = true;

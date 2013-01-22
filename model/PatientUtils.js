@@ -63,7 +63,6 @@ var makeModel = function (patient,dto){
 	patient.physicalActPreviousHours = dto.physicalActPreviousHours;
 	patient.vitalSignsPulse = (dto.vitalSignsPulse == 'on')?true:false;
 	patient.vitalSignsPulseFreq = dto.vitalSignsPulseFreq;
-	patient.vitalSignsPulseRegular = dto.vitalSignsPulseRegular;
 	patient.vitalSignsBloodPressureSistolic = dto.vitalSignsBloodPressureSistolic;
 	patient.vitalSignsBloodPressureDiastolic = dto.vitalSignsBloodPressureDiastolic;
 	patient.measuresSizeNum = dto.measuresSizeNum;
@@ -79,6 +78,85 @@ var makeModel = function (patient,dto){
 
 	return patient;
 }
+
+var makeSyncModel = function (patient,dto){
+
+	patient.created = dto.created;
+	patient.author = dto.author;
+	patient.personalDataMHNum = dto.personalDataMHNum;
+	patient.personalDataFname = dto.personalDataFname;
+	patient.personalDataLname = dto.personalDataLname;
+	patient.personalDataSSN = dto.personalDataSSN;
+	patient.personalDataBday = dto.personalDataBday;
+	patient.personalDataAge = dto.personalDataAge;
+	patient.personalDataGender = dto.personalDataGender;
+	patient.personalDataAddress = dto.personalDataAddress;
+	patient.personalDataCity = dto.personalDataCity;
+	patient.fatherAlive = (dto.fatherAlive == 'true')?true:false;
+	patient.fatherCOD = dto.fatherCOD;
+	patient.fatherDBT = (dto.fatherDBT == '1' )?true:false;
+	patient.fatherHTA = (dto.fatherHTA == '1' )?true:false;
+	patient.fatherDislipedemia = (dto.fatherDislipedemia == '1' )?true:false;
+	patient.fatherThyroid = dto.fatherThyroid
+	patient.fatherChagas = (dto.fatherChagas == '1' )?true:false;
+	patient.fatherOthers = dto.fatherOthers;
+	patient.motherAlive = (dto.motherAlive == 'true')?true:false;
+	patient.motherCOD = dto.motherCOD;
+	patient.motherDBT = (dto.motherDBT == '1' )?true:false;
+	patient.motherHTA = (dto.motherHTA == '1' )?true:false;
+	patient.motherDislipedemia = (dto.motherDislipedemia == '1' )?true:false;
+	patient.motherThyroid = dto.motherThyroid
+	patient.motherChagas = (dto.motherChagas == 'on')?true:false;
+	patient.motherOthers = dto.motherOthers;
+	patient.personalMHDBT = (dto.personalMHDBT == '1' )?true:false;
+	patient.personalMHHTA = (dto.personalMHHTA == '1' )?true:false;
+	patient.personalMHDislipedemia = (dto.personalMHDislipedemia == '1' )?true:false;
+	patient.personalMHThyroid = dto.personalMHThyroid
+	patient.personalMHChagas = (dto.personalMHChagas == '1' )?true:false;
+	patient.personalMHArhythmia = (dto.personalMHArhythmia == '1' )?true:false;
+	patient.personalMHOthers = dto.personalMHOthers;
+	patient.personalMHTreatment = (dto.personalMHTreatment == 'on')?true:false;
+	patient.personalMHTreatdesc = dto.personalMHTreatDesc;
+	patient.personalMHSmoking = (dto.personalMHSmoking == 'on')?true:false;
+	patient.personalMHSmokeDay = dto.personalMHSmokeDay;
+	patient.personalMHSmokeYears = dto.personalMHSmokeYears;
+	patient.personalMHSmokeAbstinence = dto.personalMHSmokeAbstinence;
+	patient.glycemiaSched = dto.glycemiaSched;
+	patient.glycemiaFasting = (dto.glycemiaFasting == 'on')?true:false;
+	patient.glycemiaVal = dto.glycemiaVal;
+	patient.glycemiaLastmeal = dto.glycemiaLastmeal;
+	patient.physicalActRecently = (dto.physicalActRecently == 'on')?true:false;
+	patient.physicalActRecentlyLeisure = dto.physicalActRecentlyLeisure;
+	patient.physicalActRecentlyCompetition = dto.physicalActRecentlyCompetition;
+	patient.physicalActRecentlyDesc = dto.physicalActRecentlyDesc;
+	patient.physicalActRecentlyFreq = dto.physicalActRecentlyFreq;
+	patient.physicalActRecentlyHours = dto.physicalActRecentlyHours;
+	patient.physicalActPrevious = (dto.physicalActPrevious == 'on')?true:false;
+	patient.physicalActPreviousLeisure = dto.physicalActPreviousLeisure;
+	patient.physicalActPreviousCompetition = dto.physicalActPreviousCompetition;
+	patient.physicalActPreviousDesc = dto.physicalActPreviousDesc;
+	patient.physicalActPreviousAgeIni = dto.physicalActPreviousAgeIni;
+	patient.physicalActPreviousAgeEnd = dto.physicalActPreviousAgeEnd;
+	patient.physicalActPreviousFreq = dto.physicalActPreviousFreq;
+	patient.physicalActPreviousHours = dto.physicalActPreviousHours;
+	patient.vitalSignsPulse = (dto.vitalSignsPulse == 'on')?true:false;
+	patient.vitalSignsPulseFreq = dto.vitalSignsPulseFreq;
+	patient.vitalSignsBloodPressureSistolic = dto.vitalSignsBloodPressureSistolic;
+	patient.vitalSignsBloodPressureDiastolic = dto.vitalSignsBloodPressureDiastolic;
+	patient.measuresSizeNum = dto.measuresSizeNum;
+	patient.measuresWeight = dto.measuresWeight;
+	patient.measuresWaist = dto.measuresWaist;
+	patient.measuresIMC = dto.measuresIMC;
+	patient.physicalExamInspection = dto.physicalExamInspection;
+	patient.physicalExamHeartAuscultation = dto.physicalExamHeartAuscultation;
+	patient.physicalExamMurmurs = (dto.physicalExamMurmurs == 'on')?true:false;
+	patient.physicalExamMurmursDesc = dto.physicalExamMurmursDesc;
+	patient.physicalExamPulmonarAuscultation = (dto.physicalExamPulmonarAuscultation == 'on')?true:false; /* Normal | Hallazgo */
+	patient.physicalExamPulmonarAuscultationDesc = dto.physicalExamPulmonarAuscultationDesc;
+
+	return patient;
+}
+
 
 var makeDTO = function (patient){
 	var result = {};
@@ -141,7 +219,6 @@ var makeDTO = function (patient){
 	result.physicalActPreviousHours = patient.physicalActPreviousHours;
 	result.vitalSignsPulse = (patient.vitalSignsPulse == true)?'on':'off';
 	result.vitalSignsPulseFreq = patient.vitalSignsPulseFreq;
-	result.vitalSignsPulseRegular = patient.vitalSignsPulseRegular;
 	result.vitalSignsBloodPressureSistolic = patient.vitalSignsBloodPressureSistolic;
 	result.vitalSignsBloodPressureDiastolic = patient.vitalSignsBloodPressureDiastolic;
 	result.measuresSizeNum = patient.measuresSizeNum;
@@ -158,4 +235,5 @@ var makeDTO = function (patient){
 	return result;
 }
 module.exports.makeModel = makeModel;
+module.exports.makeSyncModel = makeSyncModel;
 module.exports.makeDTO = makeDTO;
