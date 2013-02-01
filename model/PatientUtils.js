@@ -191,7 +191,7 @@ var makeDTO = function (patient){
 	result.personalMHDislipedemia = patient.personalMHDislipedemia;
 	result.personalMHThyroid = patient.personalMHThyroid;
 	result.personalMHChagas = patient.personalMHChagas;
-	result.personalMHArhythmia = (patient.personalMHArhythmia == true)?'on':'off';
+	result.personalMHArhythmia = patient.personalMHArhythmia;
 	result.personalMHOthers = patient.personalMHOthers;
 	result.personalMHTreatment = (patient.personalMHTreatment == true)?'on':'off';
 	result.personalMHTreatDesc = patient.personalMHTreatdesc;
